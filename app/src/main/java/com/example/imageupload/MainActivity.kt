@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.example.imageupload.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.Button.setOnClickListener { verificarPermissaoGaleria() }
+        binding.ButtonNav.setOnClickListener { navigateToRecycler() }
     }
 
     private fun verificarPermissaoGaleria() {
@@ -82,6 +84,10 @@ class MainActivity : AppCompatActivity() {
 
              else -> requestGaleria.launch(PERMISSAO_GALERIA)
         }
+    }
+
+    private fun navigateToRecycler() {
+        startActivity(Intent(this, RecyclerActivity::class.java))
     }
 
     private fun showDialogPermissao() {
