@@ -69,9 +69,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.Button.setOnClickListener { verificarPermissaoGaleria() }
+        binding.ButtonGallery.setOnClickListener { verificarPermissaoGaleria() }
         binding.ButtonNav.setOnClickListener { navigateToRecycler() }
         uriImagem = obterImagemCamera()
+        binding.CloseButton.setOnClickListener {
+            binding.imageView.setImageURI(null)
+        }
         binding.ButtonCamera.setOnClickListener { contract.launch(uriImagem) }
     }
 
