@@ -69,11 +69,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.ButtonGallery.setOnClickListener { verificarPermissaoGaleria() }
-        binding.ButtonNav.setOnClickListener { navigateToRecycler() }
         uriImagem = obterImagemCamera()
+        binding.ButtonNav.setOnClickListener { navigateToRecycler() }
+        binding.ButtonGallery.setOnClickListener { verificarPermissaoGaleria() }
         binding.CloseButton.setOnClickListener {
             binding.imageView.setImageURI(null)
+            binding.imageView.setImageBitmap(null)
         }
         binding.ButtonCamera.setOnClickListener { contract.launch(uriImagem) }
     }
@@ -121,30 +122,8 @@ class MainActivity : AppCompatActivity() {
     private fun obterImagemCamera() : Uri? {
         val image = File(applicationContext.filesDir, "my_images.png")
         return FileProvider.getUriForFile(applicationContext,
-            "com.example.imageupload",
-            image
-        )
+            "com.example.imageupload",image)
     }
-
-//        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        val contentValues = ContentValues()
-//        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-//
-//        val resolver = contentResolver
-//
-//        uriImagem = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-//
-//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-//
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriImagem)
-//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            if(result.resultCode == Activity.RESULT_OK) {
-//                val data: Intent? = result.data
-//            }
-//        }
-
-
 
     private fun navigateToRecycler() {
         startActivity(Intent(this, RecyclerActivity::class.java))
